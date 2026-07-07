@@ -1,6 +1,6 @@
 {
   "name": "lettermark",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Turn a name into initials and a deterministic, WCAG-safe color for avatar fallbacks. Lightweight, zero-dependency, framework-agnostic and grapheme-correct via Intl.Segmenter.",
   "type": "module",
   "main": "./dist/index.js",
@@ -43,6 +43,7 @@
     "node": ">=20"
   },
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "provenance": true
   }
 }

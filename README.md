@@ -37,6 +37,44 @@ pnpm build          # build every package (tsdown)
 pnpm lint           # Biome
 ```
 
+## Releasing
+
+Releases are published to npm from GitHub Actions with [provenance](https://docs.npmjs.com/generating-provenance-statements) via [Trusted Publishing](https://docs.npmjs.com/trusted-publishers) (OIDC — no `NPM_TOKEN` in secrets).
+
+### One-time npm setup
+
+On [npmjs.com](https://www.npmjs.com) → package **lettermark** → **Settings → Trusted Publisher**:
+
+| Field | Value |
+| ----- | ----- |
+| Repository | `tomaszbilka/lettermark` |
+| Workflow filename | `release.yml` |
+| Environment | *(leave empty)* |
+
+Also ensure **2FA** is enabled on your npm account (Authorization and writes).
+
+### Publish a new version
+
+1. Bump `version` in `packages/lettermark/package.json` (via PR to `main`).
+2. After merge, tag and push:
+
+```bash
+git pull origin main
+git tag v0.1.1   # must match package.json version
+git push origin v0.1.1
+```
+
+The [Release workflow](./.github/workflows/release.yml) builds and runs `npm publish --provenance`.
+
+### Verify provenance
+
+```bash
+npm view lettermark@0.1.1 dist.attestations
+npm audit signatures
+```
+
+On npmjs.com the version page should show the **provenance** badge linking to the GitHub Actions run.
+
 ## License
 
 [MIT](./LICENSE)
