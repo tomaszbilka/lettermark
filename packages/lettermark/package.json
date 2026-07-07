@@ -1,0 +1,38 @@
+{
+  "name": "lettermark",
+  "version": "0.0.2",
+  "description": "Turn a name into initials — lightweight, zero-dependency, framework-agnostic core for avatar fallbacks. Full API coming soon.",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "sideEffects": false,
+  "scripts": {
+    "build": "tsdown",
+    "typecheck": "tsc --noEmit"
+  },
+  "keywords": [
+    "initials",
+    "avatar",
+    "monogram",
+    "lettermark",
+    "placeholder",
+    "fallback"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

@@ -1,36 +1,25 @@
 {
-  "name": "lettermark",
-  "version": "0.0.1",
-  "description": "Turn a name into initials — lightweight, zero-dependency, framework-agnostic core for avatar fallbacks. Full API coming soon.",
+  "name": "lettermark-monorepo",
+  "version": "0.0.0",
+  "private": true,
   "type": "module",
-  "main": "./index.js",
-  "module": "./index.js",
-  "exports": {
-    ".": {
-      "types": "./index.d.ts",
-      "import": "./index.js"
-    }
+  "scripts": {
+    "build": "pnpm -r build",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "pnpm -r typecheck",
+    "lint": "biome check .",
+    "format": "biome format --write ."
   },
-  "types": "./index.d.ts",
-  "files": [
-    "index.js",
-    "index.d.ts",
-    "README.md"
-  ],
-  "sideEffects": false,
-  "keywords": [
-    "initials",
-    "avatar",
-    "monogram",
-    "lettermark",
-    "placeholder",
-    "fallback"
-  ],
-  "license": "MIT",
+  "devDependencies": {
+    "@biomejs/biome": "^2.3.4",
+    "@changesets/cli": "^2.29.8",
+    "tsdown": "^0.15.10",
+    "typescript": "^5.9.3",
+    "vitest": "^3.2.4"
+  },
   "engines": {
     "node": ">=18"
   },
-  "publishConfig": {
-    "access": "public"
-  }
+  "packageManager": "pnpm@10.33.4"
 }
