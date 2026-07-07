@@ -28,7 +28,17 @@
     "placeholder",
     "fallback"
   ],
+  "author": "tomaszbilka",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tomaszbilka/lettermark.git",
+    "directory": "packages/lettermark"
+  },
+  "bugs": {
+    "url": "https://github.com/tomaszbilka/lettermark/issues"
+  },
+  "homepage": "https://github.com/tomaszbilka/lettermark#readme",
   "engines": {
     "node": ">=18"
   },
