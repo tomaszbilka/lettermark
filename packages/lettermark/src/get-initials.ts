@@ -1,3 +1,5 @@
+import { toGraphemes } from "./segment.js";
+
 export interface GetInitialsOptions {
   /** How many initials to return. Default: 2. */
   length?: 1 | 2 | 3;
@@ -10,14 +12,6 @@ const SEPARATORS = /[\s._\-'\u2019]+/u;
 
 /** Han, Hiragana/Katakana and Hangul — scripts where the family name is the leading character. */
 const CJK = /[\u3040-\u30ff\u3400-\u9fff\uac00-\ud7af\uf900-\ufaff]/u;
-
-function toGraphemes(value: string, locale?: string): string[] {
-  if (typeof Intl !== "undefined" && "Segmenter" in Intl) {
-    const segmenter = new Intl.Segmenter(locale, { granularity: "grapheme" });
-    return Array.from(segmenter.segment(value), (s) => s.segment);
-  }
-  return [...value];
-}
 
 /**
  * Extract initials from a name.
