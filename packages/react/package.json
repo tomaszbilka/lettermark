@@ -22,11 +22,15 @@
   },
   "keywords": [
     "react",
+    "react-component",
     "avatar",
+    "avatar-fallback",
     "initials",
+    "monogram",
     "lettermark",
     "placeholder",
-    "fallback"
+    "fallback",
+    "svg"
   ],
   "author": "tomaszbilka",
   "license": "MIT",
@@ -38,7 +42,7 @@
   "bugs": {
     "url": "https://github.com/tomaszbilka/lettermark/issues"
   },
-  "homepage": "https://github.com/tomaszbilka/lettermark#readme",
+  "homepage": "https://github.com/tomaszbilka/lettermark/tree/main/packages/react#readme",
   "dependencies": {
     "lettermark": "workspace:*"
   },

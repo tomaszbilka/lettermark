@@ -7,7 +7,7 @@
     "build": "pnpm -r build",
     "test": "vitest run",
     "test:watch": "vitest",
-    "typecheck": "pnpm -r typecheck",
+    "typecheck": "pnpm --filter lettermark build && pnpm -r typecheck",
     "lint": "biome check .",
     "format": "biome format --write ."
   },
