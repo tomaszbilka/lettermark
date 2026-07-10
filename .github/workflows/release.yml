@@ -23,7 +23,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 24
-          registry-url: https://registry.npmjs.org
           cache: pnpm
 
       - name: Install dependencies
@@ -32,20 +31,11 @@ jobs:
       - name: Build
         run: pnpm build
 
-      # setup-node writes _authToken=${NODE_AUTH_TOKEN}; empty value blocks OIDC.
-      - name: Prepare npmrc for Trusted Publishing
-        run: |
-          NPMRC_PATH="${NPM_CONFIG_USERCONFIG:-$HOME/.npmrc}"
-          if [ -f "$NPMRC_PATH" ]; then
-            sed -i '/_authToken/d' "$NPMRC_PATH"
-            sed -i '/always-auth/d' "$NPMRC_PATH"
-          fi
-
       - name: Publish lettermark
         run: |
           VERSION=$(node -p "require('./package.json').version")
           NAME=$(node -p "require('./package.json').name")
-          if npm view "${NAME}@${VERSION}" version 2>/dev/null; then
+          if npx -p npm@latest -y npm view "${NAME}@${VERSION}" version 2>/dev/null; then
             echo "Skip ${NAME}@${VERSION} — already on npm"
           else
             env -u NODE_AUTH_TOKEN npx -p npm@latest -y npm publish --provenance --access public
@@ -56,7 +46,7 @@ jobs:
         run: |
           VERSION=$(node -p "require('./package.json').version")
           NAME=$(node -p "require('./package.json').name")
-          if npm view "${NAME}@${VERSION}" version 2>/dev/null; then
+          if npx -p npm@latest -y npm view "${NAME}@${VERSION}" version 2>/dev/null; then
             echo "Skip ${NAME}@${VERSION} — already on npm"
           else
             env -u NODE_AUTH_TOKEN npx -p npm@latest -y npm publish --provenance --access public
