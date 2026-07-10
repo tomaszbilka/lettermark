@@ -32,12 +32,13 @@ jobs:
       - name: Build
         run: pnpm build
 
-      # setup-node writes _authToken=${NODE_AUTH_TOKEN} which blocks OIDC when empty.
+      # setup-node writes _authToken=${NODE_AUTH_TOKEN}; empty value blocks OIDC.
       - name: Prepare npmrc for Trusted Publishing
         run: |
           NPMRC_PATH="${NPM_CONFIG_USERCONFIG:-$HOME/.npmrc}"
           if [ -f "$NPMRC_PATH" ]; then
             sed -i '/_authToken/d' "$NPMRC_PATH"
+            sed -i '/always-auth/d' "$NPMRC_PATH"
           fi
 
       - name: Publish lettermark
@@ -47,7 +48,7 @@ jobs:
           if npm view "${NAME}@${VERSION}" version 2>/dev/null; then
             echo "Skip ${NAME}@${VERSION} — already on npm"
           else
-            npm publish --provenance --access public
+            env -u NODE_AUTH_TOKEN npx -p npm@latest -y npm publish --provenance --access public
           fi
         working-directory: packages/lettermark
 
@@ -58,6 +59,6 @@ jobs:
           if npm view "${NAME}@${VERSION}" version 2>/dev/null; then
             echo "Skip ${NAME}@${VERSION} — already on npm"
           else
-            npm publish --provenance --access public
+            env -u NODE_AUTH_TOKEN npx -p npm@latest -y npm publish --provenance --access public
           fi
         working-directory: packages/react
