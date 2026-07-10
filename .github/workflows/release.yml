@@ -13,9 +13,6 @@ jobs:
   publish:
     name: build and publish to npm
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: packages/lettermark
     steps:
       - uses: actions/checkout@v4
 
@@ -31,15 +28,32 @@ jobs:
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
-        working-directory: .
 
       - name: Build
         run: pnpm build
-        working-directory: .
 
       # Trusted Publishing requires npm >= 11.5.1 (Node 22 ships npm 10).
       - name: Upgrade npm for OIDC trusted publishing
         run: npm install -g npm@latest
 
-      - name: Publish to npm with provenance
-        run: npm publish --provenance --access public
+      - name: Publish lettermark
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          NAME=$(node -p "require('./package.json').name")
+          if npm view "${NAME}@${VERSION}" version 2>/dev/null; then
+            echo "Skip ${NAME}@${VERSION} — already on npm"
+          else
+            npm publish --provenance --access public
+          fi
+        working-directory: packages/lettermark
+
+      - name: Publish @lettermark/react
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          NAME=$(node -p "require('./package.json').name")
+          if npm view "${NAME}@${VERSION}" version 2>/dev/null; then
+            echo "Skip ${NAME}@${VERSION} — already on npm"
+          else
+            npm publish --provenance --access public
+          fi
+        working-directory: packages/react

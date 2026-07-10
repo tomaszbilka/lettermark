@@ -22,7 +22,7 @@ getLettermark("Jan Kowalski");
 | Package                               | Description                                                        | Status        |
 | ------------------------------------- | ------------------------------------------------------------------ | ------------- |
 | [`lettermark`](./packages/lettermark) | Core: `getInitials`, `getColor`, `getLettermark` (framework-agnostic) | Available     |
-| `@lettermark/react`                   | Scalable SVG `<Lettermark />` component                            | Planned       |
+| [`@lettermark/react`](./packages/react) | Scalable SVG `<Lettermark />` component                            | Available     |
 | `@lettermark/vue`                     | Vue component                                                      | Planned       |
 
 ## Development
@@ -43,28 +43,30 @@ Releases are published to npm from GitHub Actions with [provenance](https://docs
 
 ### One-time npm setup
 
-On [npmjs.com](https://www.npmjs.com) → package **lettermark** → **Settings → Trusted Publisher**:
+1. Bump `version` in the relevant `packages/*/package.json` (via PR to `main`).
+2. After merge, tag and push:
+
+```bash
+git pull origin main
+git tag v0.1.0   # must match the package version you are releasing
+git push origin v0.1.0
+```
+
+The [Release workflow](./.github/workflows/release.yml) builds and publishes all public workspace packages (`lettermark`, `@lettermark/react`) with `npm publish --provenance`.
+
+### Trusted Publisher (per package)
+
+Configure on [npmjs.com](https://www.npmjs.com) → **Settings → Trusted Publisher** for each package:
+
+- `lettermark`
+- `@lettermark/react`
 
 | Field | Value |
 | ----- | ----- |
 | Repository | `tomaszbilka/lettermark` |
 | Workflow filename | `release.yml` |
 | Environment | *(leave empty)* |
-
-Also ensure **2FA** is enabled on your npm account (Authorization and writes).
-
-### Publish a new version
-
-1. Bump `version` in `packages/lettermark/package.json` (via PR to `main`).
-2. After merge, tag and push:
-
-```bash
-git pull origin main
-git tag v0.1.1   # must match package.json version
-git push origin v0.1.1
-```
-
-The [Release workflow](./.github/workflows/release.yml) builds and runs `npm publish --provenance`.
+| Allowed actions | Allow `npm publish` |
 
 ### Verify provenance
 

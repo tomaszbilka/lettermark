@@ -1,0 +1,65 @@
+{
+  "name": "@lettermark/react",
+  "version": "0.1.0",
+  "description": "Scalable SVG avatar fallback component for React — initials, deterministic colors, image fallback chain.",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "sideEffects": false,
+  "scripts": {
+    "build": "tsdown",
+    "typecheck": "tsc --noEmit"
+  },
+  "keywords": [
+    "react",
+    "avatar",
+    "initials",
+    "lettermark",
+    "placeholder",
+    "fallback"
+  ],
+  "author": "tomaszbilka",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tomaszbilka/lettermark.git",
+    "directory": "packages/react"
+  },
+  "bugs": {
+    "url": "https://github.com/tomaszbilka/lettermark/issues"
+  },
+  "homepage": "https://github.com/tomaszbilka/lettermark#readme",
+  "dependencies": {
+    "lettermark": "workspace:*"
+  },
+  "peerDependencies": {
+    "react": ">=18",
+    "react-dom": ">=18"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "vitest": "^3.2.4"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  }
+}
