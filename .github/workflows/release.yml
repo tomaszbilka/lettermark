@@ -23,6 +23,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 24
+          registry-url: https://registry.npmjs.org
           cache: pnpm
 
       - name: Install dependencies
@@ -30,6 +31,14 @@ jobs:
 
       - name: Build
         run: pnpm build
+
+      # setup-node writes _authToken=${NODE_AUTH_TOKEN} which blocks OIDC when empty.
+      - name: Prepare npmrc for Trusted Publishing
+        run: |
+          NPMRC_PATH="${NPM_CONFIG_USERCONFIG:-$HOME/.npmrc}"
+          if [ -f "$NPMRC_PATH" ]; then
+            sed -i '/_authToken/d' "$NPMRC_PATH"
+          fi
 
       - name: Publish lettermark
         run: |
